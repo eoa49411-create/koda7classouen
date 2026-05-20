@@ -325,7 +325,6 @@ function showMessage() {
   document.getElementById('resultImg').src = src;
   document.getElementById('resultOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
-  setupDownload(src);
 }
 
 function closeResult() {
@@ -333,27 +332,7 @@ function closeResult() {
   document.body.style.overflow = '';
 }
 
-// ===== LONG-PRESS DOWNLOAD =====
-function setupDownload(src) {
-  const tap = document.getElementById('tapArea');
-  // Remove previous listeners by cloning
-  const newTap = tap.cloneNode(true);
-  tap.parentNode.replaceChild(newTap, tap);
-
-  let timer = null;
-  let ripple = null;
-
-  newTap.addEventListener('touchstart', (e) => {
-    timer = setTimeout(() => {
-      const a = document.createElement('a');
-      a.href = src;
-      a.download = 'message.png';
-      a.click();
-    }, 650);
-  }, { passive: true });
-  newTap.addEventListener('touchend',  () => clearTimeout(timer));
-  newTap.addEventListener('touchmove', () => clearTimeout(timer));
-}
+// 長押しでiOSネイティブメニュー（写真に追加）が出るよう、JS干渉なし
 
 // ===== SAKURA ANIMATION =====
 const canvas = document.getElementById('sakura-canvas');
